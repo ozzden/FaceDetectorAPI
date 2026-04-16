@@ -9,8 +9,28 @@ A small REST service that runs face detection with three interchangeable backend
 | Name | Landmarks | Notes |
 |------|-----------|-------|
 | `haar` | None | OpenCV, fast, CPU. Confidence is a normalised proxy, not a real probability. |
-| `mediapipe` | 6 points | BlazeFace short-range via MediaPipe Tasks. |
+| `mediapipe` | 6 points | short-range via MediaPipe Tasks. |
 | `yolo` | 5 points | YOLOv8-nano face, downloads weights on first run (~6 MB). |
+
+## Benchmark Results
+
+Tested on 10 sample images (single face per image, CPU only, Apple M-series):
+
+| Image | Size | Haar (ms) | MediaPipe (ms) | YOLO (ms) |
+|-------|------|-----------|----------------|-----------|
+| Adam Driver | 1253x1600 | 197.9 | 3.8 | 60.9 |
+| Adam Sandler | 640x640 | 87.3 | 3.3 | 63.5 |
+| Adrien Brody | 600x900 | 83.4 | 2.6 | 47.9 |
+| Anthony Hopkins | 1368x911 | 152.5 | 3.3 | 47.5 |
+| Antonio Banderas | 1000x1504 | 186.1 | 3.0 | 47.0 |
+| Ben Affleck | 1175x1600 | 183.8 | 3.1 | 50.9 |
+| Benedict Cumberbatch | 1080x1440 | 171.1 | 3.6 | 55.2 |
+| Bill Murray | 2220x2955 | 367.1 | 3.2 | 55.8 |
+| Billy Crystal | 1080x1440 | 243.7 | 3.3 | 56.7 |
+| Brad Pitt | 640x853 | 133.1 | 3.1 | 54.5 |
+| **Average** | | **180.6** | **3.2** | **54.0** |
+
+All three detectors found 1 face in every sample. MediaPipe is the fastest, YOLO is in the middle with the highest accuracy, and Haar scales with image size (bigger image = slower, since it scans a pixel pyramid).
 
 ## Installation
 
