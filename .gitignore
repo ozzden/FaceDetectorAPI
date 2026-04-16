@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+logs/
+*.db
+*.log
+venv/
+.venv/
+*.pt
+*.tflite
+runs/
+.env
+.env.local
